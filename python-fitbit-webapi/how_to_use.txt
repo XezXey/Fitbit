@@ -1,0 +1,4 @@
+1. Register the application with fitbit website
+2. After registered, Do following this step in this 
+    "http://shishu.info/2016/06/how-to-download-your-fitbit-second-level-data-without-coding/" to access key, secret and secret_token
+3. run the script with the argv[1] as name + datetime that perform the experiment
