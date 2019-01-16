@@ -12,7 +12,8 @@ import sys
 query_str = 'https://api.fitbit.com/1/user/-/activities/heart/date/today/1d/1sec.json'
 
 # secret token of application to access web-api
-secret_token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMkRGOFkiLCJzdWIiOiI3MkNOTjciLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJhY3QgcnNldCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNTQ1Mzg1MTAzLCJpYXQiOjE1NDQ3ODAzMDN9.hwlzNRGTCM75LXggSGreQvd8mM7bEf12OQZvStgM0Jo'
+secret_token = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMkRGOFkiLCJzdWIiOiI3MkNOTjciLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyc29jIHJzZXQgcmFjdCBybG9jIHJ3ZWkgcmhyIHJwcm8gcm51dCByc2xlIiwiZXhwIjoxNTQ3NzIwMTM5LCJpYXQiOjE1NDcxMTU1Mjl9.WFJJitHH4IsKvvfzd8auPOSwJIAegWlw7rpGrT4wl5Q'
+
 
 # filepath to write json file
 path = './dataset_fitbit/' + sys.argv[1] + '/'
