@@ -1,6 +1,19 @@
+How to use a web-api from fitbit
 1. Register the application with fitbit website
 2. After registered, Do following this step in this 
     link => "http://shishu.info/2016/06/how-to-download-your-fitbit-second-level-data-without-coding/" to access key, secret and secret_token
-3. run the script with the argv[1] as name + datetime that perform the experiment
-4. Other information for web-api can be found 
+3. Put the secret token to access_token.txt in the same directory with script
+
+How to gather a data
+1. Wearing a fitbit and choose mode 
+    1.1 different mode
+	-Exercise Mode : Hold the button of fitbit Charge HR until the flag goes up and this will turn to an exercise mode automatically (1-3 Seconds:1 Data point)
+	-Normal Mode : Just keep wear the fitbit (5-15 Seconds : 1 Data point)
+2. Sync the data gathered from fitbit using fitbit apps via smartphone
+3. run the script with the argv[1] as name of subject
+4. Now, you can input date that perform an experiments the fetch data on that day or press "Enter" to use "today" as a default
+5. Data will store in "dataset_fitbit" folder and subject name use as a name of subfolder.
+
+
+Other information for web-api can be found 
     link => "here https://dev.fitbit.com/build/reference/web-api/"
