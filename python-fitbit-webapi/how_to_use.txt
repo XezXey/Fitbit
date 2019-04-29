@@ -1,3 +1,8 @@
+Fitbit api specifications
+1. 150 api requests per hour
+2. 1 subject requires api_number of requests = n_features 
+    ex: 20 subject = 120 requests ( heart rate, step, PAL(4 levels))
+
 How to use a web-api from fitbit
 1. Register the application with fitbit website
 2. After registered, Do following this step in this 
@@ -6,7 +11,7 @@ How to use a web-api from fitbit
 
 How to gather a data
 1. Wearing a fitbit and choose mode 
-    1.1 different mode
+    1.1 2 different mode
 	-Exercise Mode : Hold the button of fitbit Charge HR until the flag goes up and this will turn to an exercise mode automatically (1-3 Seconds:1 Data point)
 	-Normal Mode : Just keep wear the fitbit (5-15 Seconds : 1 Data point)
 2. Sync the data gathered from fitbit using fitbit apps via smartphone

@@ -8,7 +8,6 @@ import sys
 import errno
 
 # More information about api can be found at https://dev.fitbit.com/build/reference/web-api/
-
 # Reading a secret token of application to access web-api from current directory
 # Access token need to store in "access_token.txt"
 try: 
@@ -69,6 +68,10 @@ initial_flag = 0 # Flag for merge a dataFrame (preventing the empty_df merging) 
 for each_feature in query_str_dict.keys():
     print("{0} - Data Acquisition({1}) : Feature {2}".format(subject, experiment_date, each_feature))
     fitbit_json_dict[each_feature] = requests.get(query_str_dict[each_feature], headers=secret_header).json() # send HTTPS request for using web-api and get json data
+    
+    if ('errors' in fitbit_json_dict[each_feature].keys()):
+        print('---> {0}'.format(fitbit_json_dict[each_feature]))
+        exit(0)
     # writing to the original json file for backup
     with open(path + subject + '_' + each_feature + filename_json, 'w') as json_writer :
         json.dump(fitbit_json_dict[each_feature], json_writer)
@@ -90,7 +93,9 @@ for key_feature, value_feature in feature_name_dict.items():
 
 # Saving to csv file
 fitbit_df.to_csv(path + subject + filename_csv)
-print(fitbit_df_dict)
-print(fitbit_df)
-
+#print(fitbit_df_dict)
+print("*" * 150)
+print(fitbit_df.info())
+print(fitbit_df[1000:1005])
+print("*" * 150)
 
