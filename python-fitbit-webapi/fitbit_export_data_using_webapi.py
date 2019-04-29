@@ -19,7 +19,7 @@ except FileNotFoundError :
     exit()
 
 # Get input date for specific date data acquisition : default = today
-experiment_date = input("Input date(yyyy-MM-dd) that performed an experiment(default is today) : ")
+experiment_date = input("Input date(yyyy-MM-dd) that performed an experiment(default is today) : \n")
 if experiment_date == '':
     experiment_date = 'today'
 
@@ -50,9 +50,9 @@ fitbit_json_dict = {} # store json data of each feature
 
 # filepath to write json file
 path = './dataset_fitbit/' + sys.argv[1] + '/'
-filename_csv = 'fitbit_data.csv'
-filename_json = 'fitbit_data.json'
-start_experiment_time = sys.argv[1]
+filename_csv = '_fitbit_data.csv'
+filename_json = '_fitbit_data.json'
+subject = sys.argv[1]
 
 # Try to make directory if it's not exist
 if not os.path.exists(os.path.dirname(path)):
@@ -67,8 +67,11 @@ fitbit_df = pd.DataFrame()
 initial_flag = 0 # Flag for merge a dataFrame (preventing the empty_df merging) ===> always assign 1st df to initial merged dataframe
 # Iterate over each keys(feature) then apply : adding date + renaming + merging
 for each_feature in query_str_dict.keys():
-    print("Data Acquisition : Feature {0}".format(each_feature))
+    print("{0} - Data Acquisition({1}) : Feature {2}".format(subject, experiment_date, each_feature))
     fitbit_json_dict[each_feature] = requests.get(query_str_dict[each_feature], headers=secret_header).json() # send HTTPS request for using web-api and get json data
+    # writing to the original json file for backup
+    with open(path + subject + '_' + each_feature + filename_json, 'w') as json_writer :
+        json.dump(fitbit_json_dict[each_feature], json_writer)
     date = fitbit_json_dict[each_feature]['activities-{0}'.format(each_feature)][0]['dateTime'] # get date by feature
     fitbit_df_dict[each_feature] = pd.DataFrame(fitbit_json_dict[each_feature]['activities-{0}-intraday'.format(each_feature)]['dataset']) # get data by feature
     fitbit_df_dict[each_feature].rename(columns={'time':'Timestamp', 'value':feature_name_dict[each_feature]}, inplace=True) # renaming
@@ -80,8 +83,13 @@ for each_feature in query_str_dict.keys():
     else : 
         fitbit_df = pd.merge(fitbit_df, fitbit_df_dict[each_feature], on='Timestamp', how='outer', sort=True) # Merge by outer join(Union), on 'Timestamp' column and sort by 'Timestamp'
 
+# Filling nan value of step and PAL
+for key_feature, value_feature in feature_name_dict.items():
+    if key_feature != 'heart':
+        fitbit_df[value_feature].fillna(method='bfill', inplace=True)
+
 # Saving to csv file
-fitbit_df.to_csv(path + start_experiment_time + filename_csv)
+fitbit_df.to_csv(path + subject + filename_csv)
 print(fitbit_df_dict)
 print(fitbit_df)
 
